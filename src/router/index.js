@@ -5,11 +5,23 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+ //开屏
   {
-    path: '/',
-    redirect:'/mainframe'
+    path:'/',
+    component:()=>import('../components/Userlogin/Openscreen.vue')
+  },
+  //登录
+  {
+    path:'/login',
+    component:()=>import('../components/Userlogin/Login.vue')  
+  },
+  //注册
+  {
+    path:'/register',
+    component:()=>import('../components/Userlogin/Register.vue')
   }
   ,
+  // 主页
   {
     path: '/mainframe',
     name: 'home',
@@ -17,7 +29,7 @@ const routes = [
     redirect:'/mainframe/homepage',
     children:[
       {path:'/mainframe/homepage', component: ()=> import('../components/mainpart/Homepage.vue')},
-      {path:'/mainframe/taskpage', component: ()=> import('../components/mainpart/Taskpage.vue')},
+      {path:'/mainframe/MyCourser', component: ()=> import('../components/mainpart/Taskpage.vue')},
       {path:'/mainframe/personalcenter', component: ()=> import('../components/mainpart/Personalcenter.vue')},
     ]
   }
