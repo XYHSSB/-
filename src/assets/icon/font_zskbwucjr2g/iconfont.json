@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "868597",
+      "name": "icon-注册头像",
+      "font_class": "iconzhucetouxiang",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "15360922",
+      "name": "avatar09",
+      "font_class": "avatar09",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "15361450",
+      "name": "avatar08",
+      "font_class": "08",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "15363117",
+      "name": "avatar05",
+      "font_class": "05",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    }
+  ]
+}
