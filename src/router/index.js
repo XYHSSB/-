@@ -32,11 +32,35 @@ const routes = [
       {path:'/mainframe/MyCourser', component: ()=> import('../components/mainpart/Taskpage.vue')},
       {path:'/mainframe/personalcenter', component: ()=> import('../components/mainpart/Personalcenter.vue')},
     ]
-  }
+  },
+  {
+    path: '/ShiPin',
+    component:()=>import('../components/zujian/ShiPin.vue')
+  },
+  {
+    path: '/YinPin',
+    component:()=>import('../components/zujian/YinPin.vue')
+  },
+  {
+    path: '/JiaJiao',
+    component:()=>import('../components/zujian/JiaJiao.vue')
+  },
+  {
+    path: '/ShuKan',
+    component:()=>import('../components/zujian/ShuKan.vue')
+  },
+  {
+    path: '/JiaJiaoOne',
+    component:()=>import('../components/zujian/JiaJiaoOne.vue')
+  },
+  {
+    path: '/JiaJiaoTwo',
+    component:()=>import('../components/zujian/JiaJiaoTwo.vue')
+  },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

@@ -1,6 +1,8 @@
 <template>
   <div>
     <button @click="BackLogin">注册</button>
+   
+
   </div>
 </template>
 
