@@ -13,7 +13,11 @@ const routes = [
   //登录
   {
     path:'/login',
-    component:()=>import('../components/Userlogin/Login.vue')  
+    component:()=>import('../components/Userlogin/Login.vue') ,
+    beforeEnter: (to, from, next) => {
+      // ...
+      next();
+    }
   },
   //注册
   {
@@ -31,6 +35,7 @@ const routes = [
       {path:'/mainframe/homepage', component: ()=> import('../components/mainpart/Homepage.vue')},
       {path:'/mainframe/MyCourser', component: ()=> import('../components/mainpart/Taskpage.vue')},
       {path:'/mainframe/personalcenter', component: ()=> import('../components/mainpart/Personalcenter.vue')},
+      {path:'/mainframe/search',component:()=>import('../components/mainpart/Search.vue')}
     ]
   }
 ]
