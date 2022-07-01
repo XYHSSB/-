@@ -32,6 +32,37 @@ const routes = [
       {path:'/mainframe/MyCourser', component: ()=> import('../components/mainpart/Taskpage.vue')},
       {path:'/mainframe/personalcenter', component: ()=> import('../components/mainpart/Personalcenter.vue')},
     ]
+  },
+
+  //设置
+  {
+    path:'/setup',
+    name:'setup',
+    component:()=>import('../components/Xyhzj/Setup.vue')
+  },
+  //我的关注
+  {
+    path:'/focusOn',
+    name:'setup',
+    component:()=>import('../components/Xyhzj/FocusOn.vue')
+  },
+  //我的收藏
+  {
+    path:'/collect',
+    name:'collect',
+    component:()=>import('../components/Xyhzj/Collect.vue')
+  },
+  // 订单
+  {
+    path:'/order',
+    name:'order',
+    component:()=>import('../components/Xyhzj/Order.vue') 
+  },
+  //浏览
+  {
+    path:'/browse',
+    name:'browse',
+    component:()=>import('../components/Xyhzj/Browse.vue')
   }
 ]
 
