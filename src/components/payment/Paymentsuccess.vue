@@ -13,7 +13,7 @@
         <img src="../../assets/img/u4004.svg" /><span>支付成功</span>
       </div>
       <div class="bottn">
-        <button class="btn">返回首页</button>
+        <button class="btn" @click="fanhui">返回首页</button>
         <button class="btn_">支付成功</button>
       </div>
     </div>
@@ -61,8 +61,11 @@ export default {
       this.$router.go(-1);
     },
     skip() {
-      this.$router.push("/");
+      this.$router.push("/music");
     },
+    fanhui(){
+      this.$router.push("/educ")
+    }
   },
 };
 </script>

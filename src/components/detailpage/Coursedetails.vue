@@ -78,7 +78,7 @@
               </h4>
               <span>{{ people.school }}</span>
               <p>{{ people.num }}位粉丝</p>
-              <van-icon name="share" size="20px" class="ic" />
+              <van-icon name="share" size="20px" class="ic" @click="tiao"/>
             </div>
           </div>
           <!-- 详情三 -->
@@ -116,9 +116,9 @@
         </van-tab>
         <van-tab title="资料">
           <div class="rescourse">
-            <span class="r">{{ resCourse.tit.tit1 }}</span>
-            <span class="r1">{{ resCourse.tit.tit2 }}</span>
-            <span class="r2">{{ resCourse.tit.tit3 }}</span>
+            <span class="r">{{tit.tit1}}</span>
+            <span class="r1">{{tit.tit2}}</span>
+            <span class="r2">{{tit.tit3}}</span>
           </div>
           <div class="cataloguc" v-for="(item, index) in rescour" :key="index">
             <span><img src="../../assets/img/u3015.svg" /></span>
@@ -211,99 +211,81 @@
           <h5>感谢老师的讲解，非常用心，成绩有所提升！</h5>
           <span><van-icon name="good-job-o" />123</span>
         </div>
-      <van-loading color="#0094ff" vertical>加载中...</van-loading>
+        <van-loading color="#0094ff" vertical>加载中...</van-loading>
       </div>
     </van-action-sheet>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       number: 123,
       loading: true,
       //标题
-      titeler: "高等数学(一)微积分自学考试大纲",
+      titeler:"",
       //span内容
-      sapnList: "微积分(Calculus),数学概念,是高等数学中研究函数的微分...",
+      sapnList:"",
       //name
-      people: {
-        name: "杨学涛",
-        school: "黄岗第四高级中学特技教师",
-        num: 3201,
-      },
+      people: {},
       //课程介绍
-      introDuce: {
-        p: "十七世纪以来，微积分的概念和技巧不断扩展并被广泛应用来解决天文学、物理学中的各种实际问题，取得了巨大的成就。",
-        p2: "但直到十九世纪以前，在微积分的发展过程中，其数学分析的严密性问题一直没有得到解决。",
-        p3: "十八世纪中，包括牛顿和莱布尼兹在内的许多大数学家都觉察到这一问题并对这个问题作了努力，但都没有成功地解决这个问题。",
-      },
-      p4: "数学首先从对运动（如天文、航海问题等）的研究中引出了一个基本概念，在那以后的二百年里，这个概念在几乎所有的工作中占中心位置，这就是函数——或变量间关系——的概念。",
-      p5: "紧接着函数概念的采用，产生了微积分，它是继欧几里得几何之后，全部数学中的一个最大的创造。",
+      introDuce: {},
+      p4: "",
+      p5: "",
       //目录介绍：
-      checkFarst: "第一章函数与极限教案",
-      checkFinally: "待更新...",
-      checkList: [
-        "第二章导数与微分",
-        "第三章微分中值定理与导数的应用",
-        "第四章不定积分",
-        "第五章积分",
-        "第六章定积分的应用",
-        "第七章微分方程",
-      ],
+      checkFarst: "",
+      checkFinally: "",
+      checkList: [],
 
       //文档
-      resCourse: {
-        tit: {
-          tit1: "文档资料",
-          tit2: "大小",
-          tit3: "操作",
-        },
-        res6: "期中测试精选错题",
-        num: "3.3MB",
-        tes: "暂无更多",
-      },
-      rescour: {
-        res1: "第一章函数与极限教案",
-        res2: "第二章导数与微分教案",
-        res3: "第三章微分中值定理...",
-        res4: "第四章不定积分教案",
-        res5: "第五章定积分教案",
-      },
+      tit:{},
+      resCourse: {},
+      rescour: {},
       showShare: false,
-      options: [
-        [
-          { name: "微信", icon: "wechat" },
-          { name: "朋友圈", icon: "wechat-moments" },
-          { name: "微博", icon: "weibo" },
-          { name: "QQ", icon: "qq" },
-        ],
-        [
-          { name: "复制链接", icon: "link" },
-          { name: "分享海报", icon: "poster" },
-          { name: "二维码", icon: "qrcode" },
-          { name: "小程序码", icon: "weapp-qrcode" },
-        ],
-      ],
+      options: [],
       //评价面板数据
       showeValuate: false,
       value: 5,
-      rateList: [
-        { value: 5, size: 10, color: "#ffd21e", count: 5 },
-        { value: 4, size: 10, color: "#ffd21e", count: 4 },
-        { value: 3, size: 10, color: "#ffd21e", count: 3 },
-        { value: 2, size: 10, color: "#ffd21e", count: 2 },
-        { value: 1, size: 10, color: "#ffd21e", count: 1 },
-      ],
+      rateList: [],
     };
   },
+  created(){
+       const base_url =
+      "https://www.fastmock.site/mock/1a8af0244533c6aa85a7bef9050ac1ca/api";
+    axios.get(`${base_url}/zjhzz`).then((res) => {
+            console.log(res.data);
+            this.titeler = res.data.titeler
+            this.sapnList = res.data.sapnList
+            this.people = res.data.people
+            this.introDuce = res.data.introDuce
+            this.p4 = res.data.p4
+            this.p5 = res.data.p5
+            this.checkFarst = res.data.checkFarst
+            this.checkFinally = res.data.checkFinally
+            this.checkList = res.data.checkList
+            this.resCourse = res.data.resCourse
+            this.rescour =res.data.rescour
+            this.options =res.data.options
+            this.rateList =res.data.rateList
+            this.tit = res.data.tit
+    })
+  },
+
+
+
+
+
   methods: {
     onChange(value) {
       console.log("当前值:" + value);
     },
     pay(){
       this.$router.push('/pay')
+    },
+    tiao(){
+      this.$router.push('/educ')
     }
   },
 };

@@ -14,6 +14,15 @@ const routes = [
     path: '/',
     component: () => import('../components/detailpage/Coursedetails.vue')
   },
+  {
+    path:"/music",
+    component:() => import('../components/detailpage/Musicdetails.vue')
+  },
+  {
+    path:'/educ',
+    component:() => import('../components/detailpage/Education.vue')
+
+  },
   //支付
   {
     path: '/pay',
