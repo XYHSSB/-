@@ -9,12 +9,11 @@ import "echarts";
 import ECharts from 'vue-echarts'
 Vue.component('v-chart', ECharts);
 import { Dialog } from 'vant';
-
 Vue.use(Vant);
 Vue.prototype.$dialog=Dialog;
-
 Vue.config.productionTip = false
 Vue.prototype.$http=axios;
+axios.baseURL="http://localhost:8080/"
 new Vue({
    router,
   store,

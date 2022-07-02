@@ -93,7 +93,7 @@ export default {
         "https://www.fastmock.site/mock/e41420ab344ae39596c9a55a58f257d9/api/test"
       );
       this.datas = res;
-      console.log(this.datas);
+      console.log(res);
     },
 
     watchScroll() {
