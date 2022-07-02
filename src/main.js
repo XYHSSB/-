@@ -14,8 +14,9 @@ Vue.use(VideoPlayer)
 Vue.use(Vant);
 
 // 导入mock
-import './mock/demo.js'
+// import './mock/demo.js'
 
+axios.baseURL = 'http://localhost:8080/'
 
 Vue.config.productionTip = false
 Vue.prototype.$http=axios;

@@ -17,8 +17,8 @@
         </div>
     </div>
     <div class="yinp-1" v-for="item in yinp" :key="item.id">
-      <br><span style="font-size:16px;"><b>&nbsp;&nbsp;&nbsp;{{item.name}}</b></span><br><br>
-      <span style="font-size:13px">&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}</span>   
+      <br><span style="font-size:16px;"><b>&nbsp;&nbsp;&nbsp;{{item.audioCourserName}}</b></span><br><br>
+      <span style="font-size:13px">&nbsp;&nbsp;&nbsp;&nbsp;5分钟试听版</span>   
         <div class="xiao">
           <img class="yinp-2" src="@/assets/shukan/hahaha.png" alt="" stop-circle-o >
           <van-icon class="zant" name="play-circle-o" size="40" />
@@ -41,8 +41,10 @@ export default {
     },
   },
   async created() {
-    const {data:res} = await this.$http.get("/call/yinpin");
+    const {data:res} = await this.$http.get("/audio/audioShowAll");
+    console.log(res);
     this.yinp = res.data;
+    this.yinp = res;
   }
 };
 </script>

@@ -14,14 +14,14 @@
           <van-badge :content="1" />
           <div class="touxiang">
             <img src="@/assets/shukan/touxiang.png" alt="" />
-            <span class="mc2">{{ item.name }}</span>
+            <span class="mc2">{{ item.teacherCourserTime }}</span>
             <span class="mingcheng"
-              ><b>{{ item.username }}</b></span
+              ><b>{{ item.teacherName }}</b></span
             >
-            <span class="mc">{{ item.title }}</span>
-            <span class="mc1">{{ item.wite }}</span>
+            <span class="mc">{{ item.teacherSchool }}</span>
+            <span class="mc1">{{ item.teacherQualified }}</span>
             <van-button color="#17B3A8" class="mc3" type="primary" size="mini">{{
-              item.btn
+              item.teacherCourserWeek
             }}</van-button>
           </div>
         </div>
@@ -53,8 +53,9 @@ export default {
     });
   },
   async created() {
-    const { data: res } = await this.$http.get("/call/jj");
-    this.jiaj = res.data;
+    const { data: res } = await this.$http.get("/teacher/tutorFindAll");
+    console.log(res);
+    this.jiaj = res;
   },
 };
 </script>

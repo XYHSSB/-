@@ -7,13 +7,13 @@
     </div>
     <!-- 独自一人在大海上的 div -->
     <div class="Bigdiv">
-      <div class="fore" v-for="item in bigs" :key="item.id">
-        <img :src="item.url" /></div>
+      <div class="fore">
+        <img src="@/assets/shukan/1.png" /></div>
       <!-- 文字部分 -->
       <div class="one">
-        <span v-for="item in bigs" :key="item.id"><b>{{item.title}}</b></span>
+        <span><b>电子版更方便</b></span>
       </div>
-      <div class="two" v-for="item in bigs" :key="item.id"><span>{{item.wite}}</span></div>
+      <div class="two"><span>每本书籍，都被赋予了灵魂！</span></div>
       <div class="stree"><img src="@/assets/shukan/4.png" alt="" /></div>
     </div>
 
@@ -22,10 +22,10 @@
     <h4>本周热门</h4>
     <div class="swiper" id="xinshu">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"  v-for="item in menu" :key="item.id">
-          <img :src="item.url" alt="" />
+        <div class="swiper-slide"  v-for="item in menus" :key="item.id">
+          <img :src="item.ebookPhotoUrl" alt="" />
           <p>
-            <span>{{ item.title }}</span>
+            <span>{{ item.ebookName }}</span>
           </p>
         </div>
       </div>
@@ -33,13 +33,13 @@
 
 
 
-    <h4>本周新书</h4>
+     <h4>本周新书</h4>
     <div class="swiper" id="xinshu" >
       <div class="swiper-wrapper" >
-        <div class="swiper-slide" v-for="item in menu" :key="item.id" >
-          <img :src="item.url" alt="" />
+        <div class="swiper-slide" v-for="item in menus" :key="item.id" >
+          <img :src="item.ebookPhotoUrl" alt="" />
           <p>
-            <span>{{ item.title }}</span>
+            <span>{{ item.ebookName }}</span>
           </p>
         </div>
       </div>
@@ -49,14 +49,15 @@
 
     <h4>更多书籍</h4>
     <div id="gengduo">
-      <div class="myimg" v-for="item in menus" :key="item.id">
-        <img :src="item.url" alt="" />
+      <div class="myimg" v-for="(item,index) in menus" :key="index">
+        <img :src="item.ebookPhotoUrl" alt="" />
         <div class="mywite">
-          <b><span style="font-size: 18px">{{ item.title }}</span></b>
+          <b><span style="font-size: 18px">{{ item.ebookName }}</span></b>
           <p>
-            <span>{{item.wite}}</span>
+            <span>{{item.ebookBriefly}}</span>
           </p>
-          <p><span>原价：65元</span></p>
+          <p><span>{{item.ebookMoney}}</span></p>
+          <span>{{item.teacherName}}</span>
         </div>
       </div>
       
@@ -70,7 +71,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      menu: [],
       menus:[],
       bigs:[],
       
@@ -94,18 +94,20 @@ export default {
   },
   async created() {
     // 本周
-    const { data: res } = await this.$http.get("/call/talk");
-    this.menu = res.data;
+    // const { data: res } = await this.$http.get("/call/big");
+    // this.menu = res.data;
 
 //  更多好书
-    const { data: res1 } = await this.$http.get("/call/gengduo");
-    this.menus = res1.data;
+    const { data: res } = await this.$http.get("/ebook/ebookFindAll");
+    console.log(res);
+    this.menus = res;
 // 
-    const { data: res2 } = await this.$http.get("/call/big");
-    this.bigs = res2.data;
+    // const { data: res2 } = await this.$http.get("/call/big");
+    // this.bigs = res2.data;
 
 
   },
+
   
 
 };
@@ -207,11 +209,12 @@ h4 {
   width: 80px;
   height: 110px;
 }
+
 .swiper-slide p {
   width: 80px;
   font-size: 13px;
   text-align: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 .swiper-slide {
   text-align: center;
@@ -243,7 +246,7 @@ h4 {
   position: absolute;
   width: 280px;
   margin-left: 100px;
-  margin-top: -150px;
+  margin-top: -160px;
 }
 .myimg img {
   width: 80px;

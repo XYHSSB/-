@@ -16,31 +16,31 @@
       </div>
       <div class="ship-2">
         <span
-          ><b>
+           style="font-size:20px"><b>
             {{
-              item.name
+              item.videoName
             }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b
           ></span
         >
-        <span style="font-size: 12px; color: rgb(189, 178, 178)">{{
-          item.title
-        }}</span
-        ><br /><br />
-        <p style="font-size: 13px; color: rgb(189, 178, 178)">
-          {{ item.wite }}
+        <!-- <span style="font-size: 12px; color: rgb(189, 178, 178)">{{
+          item.videoBriefly
+        }}</span> -->
+        <br /><br />
+        <p style="font-size: 18px; color: rgb(189, 178, 178)">
+          {{ item.videoBriefly }}
         </p>
         <br />
         <van-button
           type="default"
           size="mini"
-          style="background-color: rgb(242, 242, 242); width: 50px"
-          >{{ item.btn }}</van-button
+          style="background-color: rgb(242, 242, 242); width: 50px;"
+          >{{ item.videoCourseName }}</van-button
         >
         <van-button
           type="default"
           size="mini"
           style="background-color: rgb(242, 242, 242); width: 50px"
-          >{{ item.btn1 }}</van-button
+          >{{ item.videoDegreeName }}</van-button
         >
       </div>
     </div>
@@ -93,8 +93,10 @@ export default {
     },
   },
   async created() {
-    const { data: res } = await this.$http.get("/call/shipin");
-    this.ship = res.data;
+    const { data: res } = await this.$http.get('/video/videoShowAll');
+  console.log(res);
+    this.ship = res;
+    // console.log(this.ship);
   },
 };
 </script>
