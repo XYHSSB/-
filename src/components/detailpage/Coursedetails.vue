@@ -62,8 +62,10 @@
               <img src="../../assets/img/2.jpg" alt="" />
             </div>
             <div class="lo_son2">
-              <h4>{{ titeler }}</h4>
-              <span>{{ sapnList }}</span>
+              <h4>{{ type }}</h4>
+              <span v-for="(item, index) in vide" :key="index">{{
+                item.courserIntroduction
+              }}</span>
             </div>
           </div>
           <!-- 详情二 -->
@@ -78,7 +80,7 @@
               </h4>
               <span>{{ people.school }}</span>
               <p>{{ people.num }}位粉丝</p>
-              <van-icon name="share" size="20px" class="ic" @click="tiao"/>
+              <van-icon name="share" size="20px" class="ic" @click="tiao" />
             </div>
           </div>
           <!-- 详情三 -->
@@ -103,12 +105,8 @@
               />
               <van-icon name="play-circle" size="25px" color="#16b3a8" />
             </div>
-            <div
-              class="catalogue"
-              v-for="(item, index) in checkList"
-              :key="index"
-            >
-              {{ item }}
+            <div class="catalogue" v-for="(item, index) in videoc" :key="index">
+              {{ item.courserCatalog }}
               <van-icon name="play-circle" size="25px" color="#16b3a8" />
             </div>
             <div class="catalogub">{{ checkFinally }}</div>
@@ -116,14 +114,14 @@
         </van-tab>
         <van-tab title="资料">
           <div class="rescourse">
-            <span class="r">{{tit.tit1}}</span>
-            <span class="r1">{{tit.tit2}}</span>
-            <span class="r2">{{tit.tit3}}</span>
+            <span class="r">{{ tit.tit1 }}</span>
+            <span class="r1">{{ tit.tit2 }}</span>
+            <span class="r2">{{ tit.tit3 }}</span>
           </div>
-          <div class="cataloguc" v-for="(item, index) in rescour" :key="index">
+          <div class="cataloguc" v-for="(item, index) in videos" :key="index">
             <span><img src="../../assets/img/u3015.svg" /></span>
-            <span>{{ item }}</span>
-            <span class="nn">{{ resCourse.num }}</span>
+            <span>{{ item.courserCatalog }}</span>
+            <span class="nn">{{ item.courserDataSize }}</span>
             <span class="cc"><van-icon name="down" /></span>
           </div>
           <div class="cataloguc">
@@ -148,13 +146,15 @@
           @click="showeValuate = true"
       /></van-tabbar-item>
       <van-tabbar-item
-        ><van-icon name="star" size="20px" color="yellow"
+        ><van-icon name="star" size="20px" :color="colo" @click="zjh"
       /></van-tabbar-item>
       <van-tabbar-item
         ><van-icon name="share-o" size="20px" @click="showShare = true" />
       </van-tabbar-item>
       <van-tabbar-item
-        ><van-button color="#f01626" @click="pay">￥65</van-button></van-tabbar-item
+        ><van-button color="#f01626" @click="pay"
+          >￥65</van-button
+        ></van-tabbar-item
       >
     </van-tabbar>
     <!-- 分享面板 -->
@@ -197,37 +197,39 @@
           </div>
         </div>
         <!-- 用户评价 -->
-        <div class="userprogress" v-for="(count,index) in 3" :key="index">
+        <div class="userprogress" v-for="(count, index) in 3" :key="index">
           <div class="userpro">
             <div class="users">
-              <img src="../../assets/img/u3190.svg" alt="">
+              <img src="../../assets/img/u3190.svg" alt="" />
               <span>陈某某</span>
             </div>
             <div>
               <span>2022-6-23</span>
             </div>
           </div>
-          <div><van-rate v-model="value" readonly size="10px" color="yellow"/></div>
+          <div>
+            <van-rate v-model="value" readonly size="10px" color="yellow" />
+          </div>
           <h5>感谢老师的讲解，非常用心，成绩有所提升！</h5>
           <span><van-icon name="good-job-o" />123</span>
         </div>
         <van-loading color="#0094ff" vertical>加载中...</van-loading>
       </div>
     </van-action-sheet>
+    
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
+import { Notify } from 'vant';
 export default {
   data() {
     return {
       number: 123,
       loading: true,
-      //标题
-      titeler:"",
       //span内容
-      sapnList:"",
+      sapnList: "",
       //name
       people: {},
       //课程介绍
@@ -237,10 +239,8 @@ export default {
       //目录介绍：
       checkFarst: "",
       checkFinally: "",
-      checkList: [],
-
       //文档
-      tit:{},
+      tit: {},
       resCourse: {},
       rescour: {},
       showShare: false,
@@ -249,51 +249,83 @@ export default {
       showeValuate: false,
       value: 5,
       rateList: [],
+      //后台数据
+      type: "",
+      vide: [],
+      videoc: [],
+      videos: [],
+      //状态ma
+      state: 1,
+      colo: "gray",
     };
   },
-  created(){
-       const base_url =
+  created() {
+    const base_url =
       "https://www.fastmock.site/mock/1a8af0244533c6aa85a7bef9050ac1ca/api";
     axios.get(`${base_url}/zjhzz`).then((res) => {
-            console.log(res.data);
-            this.titeler = res.data.titeler
-            this.sapnList = res.data.sapnList
-            this.people = res.data.people
-            this.introDuce = res.data.introDuce
-            this.p4 = res.data.p4
-            this.p5 = res.data.p5
-            this.checkFarst = res.data.checkFarst
-            this.checkFinally = res.data.checkFinally
-            this.checkList = res.data.checkList
-            this.resCourse = res.data.resCourse
-            this.rescour =res.data.rescour
-            this.options =res.data.options
-            this.rateList =res.data.rateList
-            this.tit = res.data.tit
-    })
+      this.sapnList = res.data.sapnList;
+      this.people = res.data.people;
+      this.introDuce = res.data.introDuce;
+      this.p4 = res.data.p4;
+      this.p5 = res.data.p5;
+      this.checkFarst = res.data.checkFarst;
+      this.checkFinally = res.data.checkFinally;
+      this.resCourse = res.data.resCourse;
+      this.rescour = res.data.rescour;
+      this.options = res.data.options;
+      this.rateList = res.data.rateList;
+      this.tit = res.data.tit;
+    }),
+      this.shoucan();
   },
-
-
-
-
 
   methods: {
     onChange(value) {
       console.log("当前值:" + value);
     },
-    pay(){
-      this.$router.push('/pay')
+    pay() {
+      this.$router.push("/pay");
     },
-    tiao(){
-      this.$router.push('/educ')
-    }
+    tiao() {
+      this.$router.push("/educ");
+    },
+    //获取真实接口数据
+    async shoucan() {
+      const { data: res } = await this.$http.get(
+        `/video/videoDetailById?userId=${1}&videoId=${1}&collectionTypeId=${2}`
+      );
+      console.log(res);
+      this.type = res.type;
+      this.vide = res.video;
+      this.videoc = res.videoc;
+      this.videos = res.videos;
+      this.state = res.state;
+    },
+    zjh() {
+      this.state = this.state == -1 ? 1 : -1;
+      // console.log(this.state);
+      if (this.state == 1) {
+        this.colo = "gray";
+        Notify('取消收藏');
+      } else {
+        this.colo = "yellow";
+        Notify('收藏成功');
+      }
+      this.$http
+        .post(
+          `/User/userCollection?userId=${1}&videoId=${1}&collectionTypeId=${2}&status=${
+            this.state
+          }`
+        )
+        .then((res) => {
+          console.log(res);
+        });
+    },
   },
 };
 </script>
 
  <style scoped>
-
-
 .vido {
   width: 390px;
   height: 240px;
@@ -597,7 +629,7 @@ input {
   height: 150px;
   padding-top: 10px;
 }
-.userpro{
+.userpro {
   width: 390px;
   height: 35px;
   line-height: 35px;
@@ -606,18 +638,18 @@ input {
   align-items: baseline;
   margin-bottom: 5px;
 }
-.users{
+.users {
   position: relative;
   right: 50px;
 }
-.users>span{
+.users > span {
   margin-left: 15px;
 }
-.users>img{
+.users > img {
   position: relative;
   top: 10px;
 }
-.userprogress>span{
+.userprogress > span {
   position: relative;
   right: -300px;
   top: -15px;

@@ -36,14 +36,13 @@
           <van-cell
           v-for="(item,index) in icoList"
           :key="index"
-            :title="item.name"
+            :title="item.paymentName"
             value-class="value-class"
             clickable
-            :data-name="item.name"
-            @click="onClick"
-            :icon="item.icon"
+            :data-name="item.paymentName"
+            @click="onClick"        
           >
-            <van-radio :name="item.name" />
+            <van-radio :name="item.paymentName" />
           </van-cell>
         </van-cell-group>
       </van-radio-group>
@@ -72,15 +71,15 @@ export default {
     const base_url='https://www.fastmock.site/mock/1a8af0244533c6aa85a7bef9050ac1ca/api'
     axios.get(`${base_url}/cour`).then(res => {
       //获取图标路径
-      this.icoList = res.data.url;
+      //this.icoList = res.data.url;
       //获取支付方式默认值；
       this.radio = res.data.radioName;
-      this.pay = res.data.radioName;
+     this.pay = res.data.radioName;
       //获取课程详解
       this.dataList = res.data.dataList;
       //获取商品信息
       this.cardObj = res.data.cardObject;
-
+      this.mode()
     })
   },
   methods: {
@@ -92,12 +91,24 @@ export default {
     },
     onClick(event) {
       const { name } = event.currentTarget.dataset;
+      console.log(name);
       this.pay = name;
       this.showeValuate=false
     },
-    succ(){
+    async mode(){
+      const {data:res} = await this.$http.get(`/video/allPaymentMethods`)
+      console.log(res);
+      this.icoList = res
+    },
+   
+
+   async succ(){
+       const { data: res } = await this.$http.put(`/video/videoDetailCollect?userId=${1}&orderCourserId=${1}&PaymentId=${2}&courserTypeId=${2}&OrderNo=${23}`);
+        console.log(res);
       this.$router.push('/success')
-    }
+
+    },
+   
   },
 };
 </script>

@@ -41,7 +41,7 @@
           @click="showeValuate = true"
       /></van-tabbar-item>
       <van-tabbar-item
-        ><van-icon name="star" size="20px" color="yellow"
+        ><van-icon name="star" size="20px" :color="colo" @click="zjh"
       /></van-tabbar-item>
       <van-tabbar-item
         ><van-icon name="share-o" size="20px" @click="showShare = true" />
@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import { Notify } from 'vant';
 import axios from "axios";
 export default {
   data() {
@@ -132,6 +133,8 @@ export default {
       showeValuate:false,
       value:5,
       rateList: [],
+      colo:'gray',
+      state:1
     };
   },
   onPlayerTimeupdate(player) {
@@ -158,6 +161,7 @@ export default {
       this.rateList = res.data.rateList
       //分享面板东西
       this.options = res.data.options
+      this.shoucan()
     });
   },
   methods: {
@@ -170,6 +174,34 @@ export default {
     onClickLeft() {
       this.$router.go(-1);
     },
+    async shoucan() {
+      const { data: res } = await this.$http.get(
+        `/video/videoDetailById?userId=${1}&videoId=${1}&collectionTypeId=${2}`
+      );
+        this.state = res.state
+      
+      },
+    zjh() {
+      this.state = this.state == -1 ? 1 : -1;
+      // console.log(this.state);
+      if (this.state == 1) {
+        this.colo = "gray";
+        Notify('取消收藏');
+      } else {
+        this.colo = "yellow";
+        Notify('收藏成功');
+      }
+      this.$http
+        .post(
+          `/User/userCollection?userId=${1}&videoId=${1}&collectionTypeId=${2}&status=${
+            this.state
+          }`
+        )
+        .then((res) => {
+          console.log(res);
+        });
+    }
+    
   },
 };
 </script>
