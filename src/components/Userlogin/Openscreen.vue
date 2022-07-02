@@ -25,7 +25,7 @@
 export default {
   methods: {
     jumps() {
-      this.$router.push('/login');
+      this.$router.push('/User/Login');
     },
     JumpRegistration(){
          this.$router.push('/register')

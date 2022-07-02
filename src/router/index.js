@@ -12,7 +12,7 @@ const routes = [
   },
   //登录
   {
-    path:'/login',
+    path:'/User/Login',
     component:()=>import('../components/Userlogin/Login.vue') ,
     beforeEnter: (to, from, next) => {
       // ...

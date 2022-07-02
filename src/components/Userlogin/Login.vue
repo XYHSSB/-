@@ -93,16 +93,14 @@ export default {
       },
     methods:{  
      async onSubmit() {
-              const {data:res} = await this.$http.get('/api/user/login')
+              const {data:res} = await this.$http.get(`/User/Login?userphone=${this.userphone}&userpassword=${this.password}`)
               console.log(res);
-                    if(this.userphone==res.userphone&&res.password==this.password){
-                      Toast('登录成功')
-                      this.$router.push('/mainframe')
-                    }else if(this.userphone==''||this.password==''){
-                     Toast('用户名或者密码不能为空')
-                    }else{
-                      Toast('用户名或者密码错误,请重新输入')
-                    }
+                   if(res>0){
+                    Toast('登录成功');
+                    this.$router.push('/mainframe')
+                   }else{
+                    Toast('登录失败')
+                   }
                 },
                 
       },

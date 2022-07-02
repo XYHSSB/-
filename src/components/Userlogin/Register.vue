@@ -3,7 +3,7 @@
     <!-- logo图片 -->
     <img src="../../assets/logo1.png" alt="">
     <!-- 注册模块 -->
-    <van-form @submit="onSubmit" Field='RegisterFromUser'>
+    <van-form Field='RegisterFromUser'>
        <van-row>
       <van-col span="2"></van-col>
       <van-col span="20">
@@ -104,15 +104,14 @@ export default {
     methods:{
        async BackLogin(){
             // const {data:res} = await  this.$http.get('/api/user/login')
-            const {data:res} = await  this.$http.get('/api/user/login')
-           if(res.userphone==this.userphone){
-            Toast('手机号已经被注册,请重新输入')
-           }else if(this.userphone==''||this.username==''||this.password==''){
-            Toast('用户名或者密码或者手机号为空')
-           }else{
-               Toast('注册成功自动为您跳转登录页面')
-                this.$router.push('/login')
-           }
+            const {data:res} = await this.$http.post(`/User/Register?userName=${this.username}&userPhone=${this.userphone}&userPassword=${this.password}`)
+            if(res>0){
+              Toast('注册成功')
+              this.$router.push('/User/Login')
+            }else{
+              Toast('注册失败,手机号已被注册')
+            }
+          
         }
     }
 }

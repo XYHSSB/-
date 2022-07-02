@@ -47,6 +47,7 @@ export default {
                 '新媒体培训',
                 '数学'
             ],
+            // 清空的历史记录返回的一个新数组
             pop:[],
             // 输入框内容
             container:""
@@ -56,7 +57,7 @@ export default {
         dele(){
             this.history.splice(0,this.history.length);
             return this.pop;  
-        },
+        },  
         onCancel(){
           this.$router.push('/mainframe');
         },
@@ -67,7 +68,7 @@ export default {
             if(this.history.length>5){
                 this.history.shift()
             }
-        }
+        },
     },
 }
 </script>

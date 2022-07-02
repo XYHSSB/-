@@ -11,6 +11,8 @@ Vue.use(Vant);
 
 Vue.config.productionTip = false
 
+axios.baseURL="http://localhost:8080/"
+
 new Vue({
    router,
   store,
