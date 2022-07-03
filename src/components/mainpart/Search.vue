@@ -7,11 +7,14 @@
     placeholder="输入想要搜索的课程"
      @cancel="onCancel"
      @keydown.enter="add"
-     v-model="container"
+     v-model="value"
+      @search='search' 
+      @click="opp"
+      
   />
 </form>
 <!-- 热门搜索 -->
-  <div id="hotsearch">
+  <div id="hotsearch" v-show="Show">
     <span>热门搜索</span>
     <ul>
         <li  v-for="(item,index) in content" :key="index"><a href="#">{{item}}</a></li>
@@ -19,7 +22,7 @@
     </ul>
   </div>
   <!-- 搜索历史 -->
-  <div id="SearchHistory">
+  <div id="SearchHistory" v-show="Show">
     <span>搜索历史</span>
     <van-icon  id="del" name="delete" @click="dele" />
     <ul >
@@ -27,10 +30,20 @@
    
     </ul>
   </div>
+
+    <div v-show="isShow" class="show">
+        <ul>
+            <li v-for="(item,index) in fillpoot2" :key="index">
+                {{item.ebookName}}
+            </li>
+        </ul>
+    </div>
   </div>
+  
 </template>
 
 <script>
+
 export default {
     data() {
         return {
@@ -50,7 +63,19 @@ export default {
             // 清空的历史记录返回的一个新数组
             pop:[],
             // 输入框内容
-            container:""
+            value:"",
+            // 放后端传过来数据的空数组
+            poot:[],
+            poot1:[],
+            poot2:[],
+            poot3:[],
+
+            // 过滤后交给新的数组
+            fillpoot2:[
+            ],
+            isShow:true,
+            Show:false
+
         }
     },
     methods: {
@@ -69,7 +94,27 @@ export default {
                 this.history.shift()
             }
         },
+        // 模糊查询
+       async search(){
+        this.fillpoot2=[]
+         const {data:res} =await this.$http.get(`/HomePage/likeSearch`)   
+        this.poot=res.audio;
+        this.poot1=res.bookTeachers;
+        this.poot2=res.ebooks;
+        this.poot3=res.videoCDS
+        this.poot2.forEach((p)=>{
+        if(p.ebookName.indexOf(this.value.trim()) !== -1){
+                this.fillpoot2.push(p)
+            }
+            })  
+            console.log(this.fillpoot2);
     },
+    opp(){
+       this.isShow=!this.isShow
+        this.Show=!this.Show
+    },
+},
+
 }
 </script>
 
@@ -114,5 +159,10 @@ a{
 }
 #del{
     margin-left: 250px;
+}
+.show{
+    width: 100%;
+    height: auto;
+    background: blue;
 }
 </style>

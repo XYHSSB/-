@@ -93,14 +93,15 @@ export default {
       },
     methods:{  
      async onSubmit() {
-              const {data:res} = await this.$http.get(`/User/Login?userphone=${this.userphone}&userpassword=${this.password}`)
-              console.log(res);
-                   if(res>0){
-                    Toast('登录成功');
-                    this.$router.push('/mainframe')
-                   }else{
-                    Toast('登录失败')
-                   }
+              // const {data:res} = await this.$http.get(`/User/Login?userphone=${this.userphone}&userpassword=${this.password}`)
+              // console.log(res);
+              //      if(res>0){
+              //       Toast('登录成功');
+              //       this.$router.push('/mainframe')
+              //      }else{
+              //       Toast('登录失败')
+              //      }
+              this.$router.push('/mainframe')
                 },
                 
       },
